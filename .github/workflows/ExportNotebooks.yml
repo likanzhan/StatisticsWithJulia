@@ -43,6 +43,12 @@ jobs:
                   
                   include("./generate.jl")'
 
+            - name: 📰 Upload site generation report
+              uses: actions/upload-artifact@v2
+              if: always()
+              with:
+                path: generation_report.html
+
             - name: 🚀 Deploy to GitHub Pages
               uses: JamesIves/github-pages-deploy-action@releases/v3
               with:
