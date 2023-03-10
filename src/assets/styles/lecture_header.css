@@ -1,0 +1,66 @@
+.lecture-header {
+    background: white;
+    color: white;
+    /* padding: 1rem; */
+    min-height: 10px;
+    width: 100%;
+    display: block;
+    border-radius: 1rem;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.lecture-header * {
+    color: rgb(72, 69, 69);
+}
+
+.lecture-header,
+.lecture-header h1 {
+    font-family: Vollkorn, serif;
+    font-weight: 700;
+    font-feature-settings: "lnum", "pnum";
+}
+
+.lecture-header .number {
+    font-style: italic;
+    font-size: 1.5rem;
+    opacity: 0.8;
+}
+
+.lecture-header h1 {
+    text-align: center;
+    font-size: 2rem;
+}
+.lecture-header .video > div {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    max-width: 400px;
+    margin: 0 auto;
+}
+.lecture-header .video iframe,
+.lecture-header .video lite-youtube {
+    /* max-width: 400px; */
+    aspect-ratio: 16/9;
+    flex: 1 1 auto;
+}
+
+/* modify Pluto's styles to avoid a visual glitch. This will make the header always display fixed at the top. */
+
+body:not(.asdfsdfa) pluto-editor:not(.asdffdas) header#pluto-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1998;
+}
+
+/* Another strategy: leave the header in place but make the export menu hidden when it is not opened. */
+/* 
+header.show_export aside#export {
+    visibility: initial;
+}
+
+aside#export {
+    visibility: hidden;
+} */
