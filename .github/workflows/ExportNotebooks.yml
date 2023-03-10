@@ -40,7 +40,7 @@ jobs:
               run: julia --project=pluto-deployment-environment -e '
                   import Pkg;
                   Pkg.instantiate();
-
+                  
                   include("./generate.jl")'
             
             - name: 📰 Upload site generation report
@@ -53,5 +53,5 @@ jobs:
               uses: JamesIves/github-pages-deploy-action@releases/v3
               with:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                  BRANCH: main
+                  BRANCH: gh-pages
                   FOLDER: _site
