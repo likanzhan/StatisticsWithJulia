@@ -7,14 +7,11 @@
 #> order = 8
 #> title = "冒泡顺序"
 #> layout = "layout.jlhtml"
-#> description = ""
 #> tags = ["lecture", "Ch01"]
+#> description = ""
 
 using Markdown
 using InteractiveUtils
-
-# ╔═╡ 237b2699-4647-4a6b-8ea6-1f4c11ee061a
-using BenchmarkTools
 
 # ╔═╡ 2a251030-bc90-11ed-14f2-d12043ef0a37
 md"""
@@ -32,17 +29,35 @@ $\frac{\alpha}{\beta}$
 
 """
 
+# ╔═╡ 237b2699-4647-4a6b-8ea6-1f4c11ee061a
+using BenchmarkTools
+
 # ╔═╡ 4c5666b4-b721-481c-b9b8-e10debf73ccb
 # ╠═╡ disabled = true
 #=╠═╡
 z = collect(1:10)
   ╠═╡ =#
 
+# ╔═╡ df5c2d6f-07d1-4695-a882-184bd4238460
+(x -> x^2)(z) # dot syntax
+
 # ╔═╡ 89843663-6983-4443-bc09-d3670751cac2
 # @doc map
 
+# ╔═╡ a096b9e9-6972-4077-94e7-11e4ffc293ca
+map(z) do x
+	y = x^2
+	y + 100
+end
+
+# ╔═╡ 9701f09a-db0c-4de4-a3c0-85e8c5aabc61
+map(x->(y = x^2; y + 100), z)
+
 # ╔═╡ 37e2bc11-dfae-4c48-9dea-275586f54703
 f(x) = (y = x^2; return y + 100)
+
+# ╔═╡ b17663a9-90d6-429b-b8d9-ac81249e24f6
+map(f, z)
 
 # ╔═╡ ed0da3d4-a323-49ae-8e29-9902a9f32151
 function ff(x)
@@ -50,8 +65,17 @@ function ff(x)
 	y + 100
 end
 
+# ╔═╡ 7b61e179-26e6-4907-a840-57146240c95f
+map(ff, z)
+
 # ╔═╡ fe1df083-7d2a-4dc7-b378-2d2e9fcf1cd1
 ff(4)
+
+# ╔═╡ f0284138-80fe-437e-89d0-08b528108389
+ff(z)
+
+# ╔═╡ a092779d-18f0-4140-a125-e84135953277
+ff.(z)
 
 # ╔═╡ 0af2aeef-c07d-45ca-aef5-4ba142f9d4d5
 md"""
@@ -66,30 +90,6 @@ end
 
 # ╔═╡ e8b5d14e-d576-4d9c-8773-323499bde96a
 z = []
-
-# ╔═╡ df5c2d6f-07d1-4695-a882-184bd4238460
-(x -> x^2)(z) # dot syntax
-
-# ╔═╡ a096b9e9-6972-4077-94e7-11e4ffc293ca
-map(z) do x
-	y = x^2
-	y + 100
-end
-
-# ╔═╡ 9701f09a-db0c-4de4-a3c0-85e8c5aabc61
-map(x->(y = x^2; y + 100), z)
-
-# ╔═╡ b17663a9-90d6-429b-b8d9-ac81249e24f6
-map(f, z)
-
-# ╔═╡ 7b61e179-26e6-4907-a840-57146240c95f
-map(ff, z)
-
-# ╔═╡ f0284138-80fe-437e-89d0-08b528108389
-ff(z)
-
-# ╔═╡ a092779d-18f0-4140-a125-e84135953277
-ff.(z)
 
 # ╔═╡ bf3e1604-8484-4796-8516-8dd7aefbc44c
 typeof(z)
