@@ -1,5 +1,7 @@
 ---
+title: "Julia语言与统计"
 layout: "layout.jlhtml"
+tags: ["homepage"]
 ---
 
 <link rel="stylesheet" href="$(root_url)/assets/styles/homepage.css" type="text/css" />
