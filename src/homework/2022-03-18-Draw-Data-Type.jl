@@ -34,10 +34,11 @@ function TypeTree(t::Type, indent = "    ")
     end
 end
 
-# ╔═╡ 594a2ecf-ede5-4f27-9d99-5b23460eded8
-with_terminal() do
-	TypeTree(AbstractArray)
-end
+# ╔═╡ 7fa72779-f298-4381-be6a-947879c862b8
+TypeTree(Number)
+
+# ╔═╡ 6ee20df9-ca9e-4042-ab3a-4f0dc87898a1
+TypeTree(AbstractArray)
 
 # ╔═╡ 210f6d56-8290-4e30-9630-98614824b391
 begin
@@ -1199,7 +1200,8 @@ version = "1.4.1+0"
 # ╔═╡ Cell order:
 # ╠═90995544-023b-4cb5-8c72-334b3c211df6
 # ╠═8be50e62-a6b1-11ec-1a95-d702aebe8559
-# ╠═594a2ecf-ede5-4f27-9d99-5b23460eded8
+# ╠═7fa72779-f298-4381-be6a-947879c862b8
+# ╠═6ee20df9-ca9e-4042-ab3a-4f0dc87898a1
 # ╠═47421fe3-5f5c-4622-ac50-c8d9bbfdd736
 # ╠═210f6d56-8290-4e30-9630-98614824b391
 # ╟─00000000-0000-0000-0000-000000000001
