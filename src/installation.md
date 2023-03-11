@@ -1,8 +1,8 @@
 ---
 title: "软件安装"
-tags: ["welcome"]
 order: 1
 layout: "md.jlmd"
+tags: ["Introduction"]
 ---
 
 $(

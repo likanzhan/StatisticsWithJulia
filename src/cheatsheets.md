@@ -1,8 +1,8 @@
 ---
 title: "相关资源"
-tags: ["welcome"]
 order: 2
 layout: "md.jlmd"
+tags: ["Introduction"]
 ---
 
 ## 语言本身
