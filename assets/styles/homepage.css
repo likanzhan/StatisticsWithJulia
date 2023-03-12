@@ -1,7 +1,7 @@
 @import url("newdefault.css");
 
 body {
-    background: url("../homepage/bg.svg");
+    background: url("../homepage/background.svg");
     background-color: hsl(231deg 14% 57%);
     background-size: cover;
 }
