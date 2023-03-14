@@ -46,5 +46,6 @@ tags: ["Introduction"]
 
 - Gelman, A., Carlin, J. B., Stern, H. S., Dunson, D. B., Vehtari, A., & Rubin, D. B. (2014). *Bayesian Data Analysis*. CRC Press. || [网站](http://www.stat.columbia.edu/~gelman/book/), [课程信息](https://github.com/avehtari/BDA_course_Aalto), [R 代码](https://github.com/avehtari/BDA_R_demos)
 
-- Nicenboim, B., Schad, D., & Vasishth, S. (2021). *An Introduction to Bayesian Data Analysis for Cognitive Science*. || [在线阅读](https://vasishth.github.io/bayescogsci/book/)
+- McElreath, R. (2020). *Statistical Rethinking: A Bayesian Course with Examples in R and Stan* (2 ed.). CRC Press. || [github](https://github.com/rmcelreath/stat_rethinking_2023), [youtube](https://www.youtube.com/watch?v=FdnMWdICdRs&list=PLDcUM9US4XdPz-KxHM4XHt7uUVGWWVSus)
 
+- Nicenboim, B., Schad, D., & Vasishth, S. (2021). *An Introduction to Bayesian Data Analysis for Cognitive Science*. || [在线阅读](https://vasishth.github.io/bayescogsci/book/)

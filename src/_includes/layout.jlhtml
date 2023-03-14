@@ -26,7 +26,8 @@ $(begin
     end
     
     nothing
-end)<html lang="en">
+end)
+<html lang="en">
 <head>
 
 <title>$(f("title", splitext(basename(page.input.relative_path))[1]))</title>
