@@ -7,7 +7,7 @@
 #> order = 8
 #> title = "冒泡顺序"
 #> layout = "layout.jlhtml"
-#> tags = ["lecture", "Ch01"]
+#> tags = ["lecture", "CH01"]
 #> description = ""
 
 using Markdown

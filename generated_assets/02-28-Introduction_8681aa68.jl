@@ -7,7 +7,7 @@
 #> order = 7
 #> title = "函数定义"
 #> layout = "layout.jlhtml"
-#> tags = ["lecture", "Ch01"]
+#> tags = ["lecture", "CH01"]
 #> description = ""
 
 using Markdown

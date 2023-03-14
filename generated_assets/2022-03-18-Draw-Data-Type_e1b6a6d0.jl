@@ -8,7 +8,7 @@
 #> homework_number = 1
 #> title = "数据类型"
 #> layout = "layout.jlhtml"
-#> tags = ["homework", "Ch01"]
+#> tags = ["homework", "CH01"]
 #> description = ""
 
 using Markdown
