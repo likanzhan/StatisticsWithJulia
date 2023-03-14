@@ -120,7 +120,7 @@ begin
 	numInState = zeros(Int64, 3)
 	for _ in 1:N
 		numInState[state[]] += 1
-		state[] = sample(1:3, weights(P[state, :]))
+		state[] = sample(1:3, weights(P[state[], :]))
 	end
 end
 
