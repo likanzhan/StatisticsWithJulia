@@ -129,7 +129,7 @@ $(pluto_head)
                 </div>
                 <div class="logos">
                     <picture title="北京语言大学">
-                        <img src="$(root_url)/assets/BLCU.png">
+                        <img src="$(root_url)/assets/blcu.svg">
                     </picture>
                     <picture title="Julia Programming Language">
                         <source srcset="$(root_url)/assets/julia-logo-dark.svg" media="(prefers-color-scheme: dark)" />
