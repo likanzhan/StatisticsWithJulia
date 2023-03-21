@@ -4,7 +4,7 @@
 #> [frontmatter]
 #> chapter = 1
 #> section = 3
-#> order = 8
+#> order = 9
 #> title = "马科夫链"
 #> layout = "layout.jlhtml"
 #> tags = ["lecture", "CH01"]
