@@ -14,7 +14,7 @@ using Markdown
 using InteractiveUtils
 
 # ╔═╡ 82e32f02-0862-4781-841f-24029e01dddc
-using GLMakie
+using CairoMakie
 
 # ╔═╡ 04a8abc2-ab54-475c-ac20-080773644022
 let

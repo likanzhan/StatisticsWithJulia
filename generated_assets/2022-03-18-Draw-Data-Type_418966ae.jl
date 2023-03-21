@@ -4,7 +4,7 @@
 #> [frontmatter]
 #> chapter = 1
 #> section = 1
-#> order = 9
+#> order = 7
 #> homework_number = 1
 #> title = "数据类型"
 #> layout = "layout.jlhtml"
