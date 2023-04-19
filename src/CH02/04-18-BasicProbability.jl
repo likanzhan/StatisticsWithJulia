@@ -7,7 +7,7 @@
 #> order = 12
 #> title = "密码匹配"
 #> layout = "layout.jlhtml"
-#> tags = ["lecture", "CH01"]
+#> tags = ["lecture", "CH02"]
 #> description = ""
 
 using Markdown
