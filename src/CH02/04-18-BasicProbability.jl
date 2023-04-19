@@ -1,11 +1,11 @@
 ### A Pluto.jl notebook ###
-# v0.19.23
+# v0.19.24
 
 #> [frontmatter]
 #> chapter = 1
-#> section = 7
+#> section = 1
 #> order = 12
-#> title = "随机数"
+#> title = "密码匹配"
 #> layout = "layout.jlhtml"
 #> tags = ["lecture", "CH01"]
 #> description = ""
@@ -13,135 +13,171 @@
 using Markdown
 using InteractiveUtils
 
-# ╔═╡ 3a9c3195-e77b-45e7-a153-40925d3b5ac9
-using PlutoUI; TableOfContents(title = "目录", aside = false)
-
-# ╔═╡ 68e5c6b1-d1a9-4e82-8124-4c6238c8347d
-using Random
-
-# ╔═╡ b1bdef91-4f6c-48ac-b7de-112918182c50
+# ╔═╡ ed30609a-dd8d-11ed-1071-9ff9b17db00c
 using CairoMakie
 
-# ╔═╡ 57b06385-7e4e-44d5-b27f-20fa93c3f053
-using StatsBase: norm
+# ╔═╡ 619ec425-a3c4-46e4-a1b1-db4533f3e9e6
+using Random
 
-# ╔═╡ ecd3eb38-d80d-11ed-3e5b-67f591eda4bf
-md"""
-### 随机数
-"""
+# ╔═╡ fa5b9bec-2097-4dbe-8984-887f9f1bb58b
+typeof(Float64[])
 
-# ╔═╡ c8f01d24-c54e-42d0-b40a-62f5de8022c0
-begin
-	Random.seed!(1975)
-	[rand() for _ in 1:3]
+# ╔═╡ 5183c9cf-a488-4b3d-b500-041e17c956a5
+function path(rng, α; n = 500) # \alpha + tab
+	x, y = 0.0, 0.0
+	xDat, yDat = Float64[], Float64[]
+	for _ in 1:n
+		flip = rand(rng, 1:4)
+		if flip == 1
+			x += 1
+		elseif flip == 2
+			y += 1
+		elseif flip == 3
+			x -= (2 + α) * rand(rng)
+		elseif flip == 4
+			y -= (2 + α) * rand(rng)
+		end
+		push!(xDat, x)
+		push!(yDat, y)
+	end
+	return [xDat yDat]
 end
 
-# ╔═╡ 56be5a59-a524-4622-9bce-e2da14fea30f
+# ╔═╡ 8428d2d7-a40f-4af2-9969-5245c38215d9
+αs = [0.2, 0.21, 0.22]
+
+# ╔═╡ d9f2046e-9e07-4ff6-9475-cfaa9904bfb6
+fig = Figure();
+
+# ╔═╡ c099636f-f066-4672-a76c-688da319dbbb
+ax1 = Axis(fig[1, 1]);
+
+# ╔═╡ ed318f77-47ce-4220-a17a-e5e0acbabddc
+ax2 = Axis(fig[1, 2]);
+
+# ╔═╡ 35bec7b6-2891-434e-9ab8-2ebd43633fb5
+lines!(ax1, path(MersenneTwister(27), αs[1]), color = :blue);
+
+# ╔═╡ 0f471de2-42f4-455e-87e3-6f92f3653751
+lines!(ax1, path(MersenneTwister(27), αs[2]), color = :red);
+
+# ╔═╡ d906c8b7-3f89-43e2-8479-466faa3ef9bb
+lines!(ax1, path(MersenneTwister(27), αs[3]), color = :green);
+
+# ╔═╡ a04427c3-78ad-465e-abbd-6a08f3c9887d
+rng = MersenneTwister(27)
+
+# ╔═╡ b121c585-1cce-452f-96e1-8e340cd6bacc
+lines!(ax2, path(rng, αs[1]), color = :blue);
+
+# ╔═╡ defef1c0-f9e5-40c5-83d3-f64f190032f3
+lines!(ax2, path(rng, αs[2]), color = :red);
+
+# ╔═╡ 56911886-89ed-42f6-880f-595ab16987a9
+lines!(ax2, path(rng, αs[3]), color = :green);
+
+# ╔═╡ 939f19da-606d-46a0-9833-b13e602e7e10
+fig
+
+# ╔═╡ 24628716-8a7e-4a19-b5f5-86bf3e0ae829
 md"""
-### 蒙特卡洛模拟估计圆周率
+## 随机试验
 """
 
-# ╔═╡ 8ef8f16f-db5b-4117-ae54-5bc89f1c259b
-N = 10^6
+# ╔═╡ 730193d1-1900-4f94-bc5f-5562a8387005
+faces = 1:6
 
-# ╔═╡ cd1a5525-9cc4-487f-af2d-11475d8898b2
-hist(rand(N), bins=50)
+# ╔═╡ 97946f88-cb5c-4cce-b95d-c91b483a7bf3
+res = [iseven(i + j) for i in faces, j in faces]
 
-# ╔═╡ e35a4e68-0867-4351-9b93-1f7ce4cc59fe
-data1 = [[rand(), rand()] for _ in 1:N]
+# ╔═╡ 57ebe8b1-9986-400e-9ba8-3b33ea0f3768
+sum(res) / length(res) 
 
-# ╔═╡ 9d2a625b-b5b2-4c71-8998-c700c71c6357
-typeof(data1)
+# ╔═╡ f8fa76b6-301a-4462-a641-334321891e95
+# ╠═╡ disabled = true
+#=╠═╡
+N = 10^5
+  ╠═╡ =#
 
-# ╔═╡ a48087c8-7b26-4f4a-b8c2-7401a3d133fe
-indata = filter(x -> norm(x) <= 1, data1) # norm 模
-
-# ╔═╡ 38296a16-8c66-45a4-b020-60530a8a328d
-outdata = filter(x -> norm(x) > 1, data1) # norm 模
-
-# ╔═╡ dd5f017d-8f07-4118-a977-f676c104ef30
-length(indata) / N * 4
-
-# ╔═╡ fad61700-8ec6-4d5c-bf98-aa4d880cec5a
-first.(indata)
-
-# ╔═╡ 7b455bba-8b5c-4789-9d2e-3175e71bbbba
-scatter(first.(indata), last.(indata), color = :blue, markersize = 0.7);
-
-# ╔═╡ dc5b6a97-12c7-410d-82a1-1d0311aa02a5
-scatter!(first.(outdata), last.(outdata), color = :red, markersize = 0.7);
-
-# ╔═╡ ae0b7e11-5a6e-4eb0-89f9-b0646b4d3dd3
-current_figure()
-
-# ╔═╡ 7639c735-cc80-4ebf-a32c-29af34f78b57
-# @doc norm
-
-# ╔═╡ 206abaac-dde6-4fca-bed0-be1a46ce88a4
+# ╔═╡ 0becf895-64cf-4998-a8e7-9e5c0f53cb71
 md"""
-### 随机数产生器
+### 密码匹配
 """
 
-# ╔═╡ c879c165-2927-48ca-b54a-2cf26a767810
-a, c, m = 69069, 1, 2^32
+# ╔═╡ de5f4d59-dfbf-4a8f-b99a-ec58e5bd62fc
+10 ^ 8
 
-# ╔═╡ 2f95653a-5f29-49a8-a7b0-1f23dcb56e36
-next(x) = (a * x + c) % m # 线性同余器， 伪随机数产生方法
+# ╔═╡ a03b3b50-1708-485d-9db3-a542c4ac19d0
+62^8
 
-# ╔═╡ 20baf4f9-3d9e-44bf-acde-77fd0c93cd1b
-data2 = Array{Float64, 1}(undef, N)
+# ╔═╡ 474cad02-146d-47a1-8fbc-d8d9e61cda34
+i = Ref(0)
 
-# ╔═╡ a8de16c0-fa19-4d0a-82f0-ea1c401c6c89
-x = Ref(808)
-
-# ╔═╡ 12c612fb-924a-4a6c-9ec2-5489604b398e
-for i in 1:N
-	data2[i] = x[] / m
-	x[] = next(x[]) 
+# ╔═╡ f39df4aa-a36c-40b8-9e95-b3ec5d515814
+for (x, y) in zip("3xyZu4vN", "35xyZ4vN")
+	x == y && println(x)
+	i[] += 1
 end
 
-# ╔═╡ 9733f90a-fbdf-44bc-965f-dd0778619a40
-data2
+# ╔═╡ 096e9c75-b163-4a97-b623-ca486765f25d
+i[]
 
-# ╔═╡ 3917fada-d87e-4c88-9886-0d71bacf1e73
-hist(data2)
+# ╔═╡ 63e7d663-84aa-42dc-85c3-fe061547f24e
+[typeof(x) for x in ["A", 'A']]
 
-# ╔═╡ 33175bca-3d01-43df-8ed5-89063c4125c0
-scatter(data2[1:3000])
+# ╔═╡ 7d15d1df-ec03-4e33-b7e4-83d4fb4884e0
+(62^8 - 61^8) / 62^8
 
-# ╔═╡ 8de699da-19b6-4565-81c6-2a750757acd1
-# using Distributions
+# ╔═╡ b3d084b3-3c83-49c2-bf67-dd28bbfb2060
+possibleChars = ['a':'z'; 'A':'Z'; '0':'9'] # ; vs ,
 
-# ╔═╡ 14207c52-7374-4201-b3a0-0a11216c5d14
-hist(randn(N), bins = 50)
+# ╔═╡ dfe852af-1ed8-450a-bb46-141a848124e2
+['a':'z'], ['a':'z', ], ['a':'z';]
 
-# ╔═╡ 02e7664a-3860-4ec3-9037-51b7502cf5e3
-rng = MersenneTwister(3)
+# ╔═╡ b461fc77-d50b-4990-9ef3-66aa7c1246b8
+typeof(possibleChars)
 
-# ╔═╡ 4fb0910f-a4b6-4aa3-8cb0-b59b69e47801
-String(rand(rng, 'a':'z', 6)...)
+# ╔═╡ be524b26-bb32-474a-a6b3-783ecd98ef07
+correctPassword = "3xyZu4vN"
 
-# ╔═╡ 96e53273-52e7-485a-b924-0b2f299bf873
-randstring(rng, 'a':'z', 6)
+# ╔═╡ 0d3078d3-1a52-4974-a055-7d2723d68afb
+N = 10^5
 
-# ╔═╡ dee73139-ff5d-4dc2-a0e6-34a73b602fb5
-randperm(rng, 6)
+# ╔═╡ f5d14cf3-778b-4991-b549-cc3f340c2e0e
+sss() = sum([iseven(rand(faces) + rand(faces)) for _ in 1:N]) / N
 
-# ╔═╡ fb7a89c6-3007-443a-95c5-bc87ef295293
-shuffle(rng, ["x", "y", "z"])
+# ╔═╡ c8888eb6-17f7-49f5-a5b5-daa7dfc90dee
+ress = [sss() for _ in 1:10^3]
+
+# ╔═╡ 8f286b17-5d4b-48fe-a5b4-a495c187d4e5
+hist(ress, bins = 50)
+
+# ╔═╡ 717aadb9-1b3a-469f-9dc9-de55e9d3af7b
+passLength = length(correctPassword)
+
+# ╔═╡ 32c2c7f6-b17f-4243-a293-e40f9700394e
+numMatch(loginPassword) = sum(loginPassword[i] == correctPassword[i] for i in 1: passLength)
+
+# ╔═╡ 43c95091-5232-4cf9-adb9-1b77d9ea7cf8
+numMatch("35xyZ4vN")
+
+# ╔═╡ 4060820a-500b-4898-9cfc-7f4ef5bfaaff
+String(rand(possibleChars, passLength)) # String - Type vs string - funciton
+
+# ╔═╡ a2ead639-5961-4224-9e13-8d37f97973a8
+passwords = [String(rand(possibleChars, passLength)) for _ in 1:10^7]
+
+# ╔═╡ d50611e0-bb7c-42b1-8326-0b992fcd7289
+sum(numMatch(p) >= 1 for p in passwords) / 10^7
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
 CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
-PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
-StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
 
 [compat]
 CairoMakie = "~0.10.4"
-PlutoUI = "~0.7.50"
-StatsBase = "~0.33.21"
 """
 
 # ╔═╡ 00000000-0000-0000-0000-000000000002
@@ -150,19 +186,13 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.8.5"
 manifest_format = "2.0"
-project_hash = "565c452b1df9d29c989285d99bf9d730ccde2280"
+project_hash = "f9444827f2dbc690bd69bdfeb9a6460f6e68d20a"
 
 [[deps.AbstractFFTs]]
 deps = ["ChainRulesCore", "LinearAlgebra"]
 git-tree-sha1 = "16b6dbc4cf7caee4e1e75c49485ec67b667098a0"
 uuid = "621f4979-c628-5d54-868e-fcf4e3e8185c"
 version = "1.3.1"
-
-[[deps.AbstractPlutoDingetjes]]
-deps = ["Pkg"]
-git-tree-sha1 = "8eaf9f1b4921132a4cff3f36a1d9ba923b14a481"
-uuid = "6e696c72-6542-2067-7265-42206c756150"
-version = "1.1.4"
 
 [[deps.AbstractTrees]]
 git-tree-sha1 = "faa260e4cb5aba097a73fab382dd4b5819d8ec8c"
@@ -531,24 +561,6 @@ git-tree-sha1 = "432b5b03176f8182bd6841fbfc42c718506a2d5f"
 uuid = "34004b35-14d8-5ef3-9330-4cdb6864b03a"
 version = "0.3.15"
 
-[[deps.Hyperscript]]
-deps = ["Test"]
-git-tree-sha1 = "8d511d5b81240fc8e6802386302675bdf47737b9"
-uuid = "47d2ed2b-36de-50cf-bf87-49c2cf4b8b91"
-version = "0.0.4"
-
-[[deps.HypertextLiteral]]
-deps = ["Tricks"]
-git-tree-sha1 = "c47c5fa4c5308f27ccaac35504858d8914e102f9"
-uuid = "ac1192a8-f4b3-4bfe-ba22-af5b92cd3ab2"
-version = "0.9.4"
-
-[[deps.IOCapture]]
-deps = ["Logging", "Random"]
-git-tree-sha1 = "f7be53659ab06ddc986428d3a9dcc95f6fa6705a"
-uuid = "b5f81e59-6552-4d32-b1f0-c071b021bf89"
-version = "0.2.2"
-
 [[deps.ImageAxes]]
 deps = ["AxisArrays", "ImageBase", "ImageCore", "Reexport", "SimpleTraits"]
 git-tree-sha1 = "c54b581a83008dc7f292e205f4c409ab5caa0f04"
@@ -597,9 +609,9 @@ version = "0.1.3"
 
 [[deps.IntelOpenMP_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
-git-tree-sha1 = "d979e54b71da82f3a65b62553da4fc3d18c9004c"
+git-tree-sha1 = "0cb9352ef2e01574eeebdb102948a58740dcaf83"
 uuid = "1d5cc7b8-4909-519e-a0f8-d0f5ad9712d0"
-version = "2018.0.3+2"
+version = "2023.1.0+0"
 
 [[deps.InteractiveUtils]]
 deps = ["Markdown"]
@@ -652,9 +664,9 @@ version = "1.4.1"
 
 [[deps.JSON]]
 deps = ["Dates", "Mmap", "Parsers", "Unicode"]
-git-tree-sha1 = "3c837543ddb02250ef42f4738347454f95079d4e"
+git-tree-sha1 = "31e996f0a15c7b280ba9f76636b3ff9e2ae58c9a"
 uuid = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"
-version = "0.21.3"
+version = "0.21.4"
 
 [[deps.JpegTurbo]]
 deps = ["CEnum", "FileIO", "ImageCore", "JpegTurbo_jll", "TOML"]
@@ -770,11 +782,6 @@ version = "0.3.23"
 
 [[deps.Logging]]
 uuid = "56ddb016-857b-54e1-b83d-db4d58db5568"
-
-[[deps.MIMEs]]
-git-tree-sha1 = "65f28ad4b594aebe22157d6fac869786a255b7eb"
-uuid = "6c6e2e6c-3030-632d-7369-2d6c69616d65"
-version = "0.1.4"
 
 [[deps.MKL_jll]]
 deps = ["Artifacts", "IntelOpenMP_jll", "JLLWrappers", "LazyArtifacts", "Libdl", "Pkg"]
@@ -992,12 +999,6 @@ git-tree-sha1 = "c95373e73290cf50a8a22c3375e4625ded5c5280"
 uuid = "995b91a9-d308-5afd-9ec6-746e21dbc043"
 version = "1.3.4"
 
-[[deps.PlutoUI]]
-deps = ["AbstractPlutoDingetjes", "Base64", "ColorTypes", "Dates", "FixedPointNumbers", "Hyperscript", "HypertextLiteral", "IOCapture", "InteractiveUtils", "JSON", "Logging", "MIMEs", "Markdown", "Random", "Reexport", "URIs", "UUIDs"]
-git-tree-sha1 = "5bb5129fdd62a2bbbe17c2756932259acf467386"
-uuid = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
-version = "0.7.50"
-
 [[deps.PolygonOps]]
 git-tree-sha1 = "77b3d3605fc1cd0b42d95eba87dfcd2bf67d5ff6"
 uuid = "647866c9-e3ac-4575-94e7-e3d426903924"
@@ -1189,9 +1190,9 @@ version = "0.1.1"
 
 [[deps.StaticArrays]]
 deps = ["LinearAlgebra", "Random", "StaticArraysCore", "Statistics"]
-git-tree-sha1 = "b8d897fe7fa688e93aef573711cb207c08c9e11e"
+git-tree-sha1 = "63e84b7fdf5021026d0f17f76af7c57772313d99"
 uuid = "90137ffa-7385-5640-81b9-e52037218182"
-version = "1.5.19"
+version = "1.5.21"
 
 [[deps.StaticArraysCore]]
 git-tree-sha1 = "6b7ba252635a5eff6a0b0664a41ee140a1c9e72a"
@@ -1270,14 +1271,9 @@ version = "0.6.4"
 
 [[deps.TranscodingStreams]]
 deps = ["Random", "Test"]
-git-tree-sha1 = "94f38103c984f89cf77c402f2a68dbd870f8165f"
+git-tree-sha1 = "0b829474fed270a4b0ab07117dce9b9a2fa7581a"
 uuid = "3bb67fe8-82b1-5028-8e26-92a6c54297fa"
-version = "0.9.11"
-
-[[deps.Tricks]]
-git-tree-sha1 = "aadb748be58b492045b4f56166b5188aa63ce549"
-uuid = "410a4b4d-49e4-4fbc-ab6d-cb71b17b3775"
-version = "0.1.7"
+version = "0.9.12"
 
 [[deps.TriplotBase]]
 git-tree-sha1 = "4d4ed7f294cda19382ff7de4c137d24d16adc89b"
@@ -1288,11 +1284,6 @@ version = "0.1.0"
 git-tree-sha1 = "3c712976c47707ff893cf6ba4354aa14db1d8938"
 uuid = "9d95972d-f1c8-5527-a6e0-b4b365fa01f6"
 version = "1.3.0"
-
-[[deps.URIs]]
-git-tree-sha1 = "074f993b0ca030848b897beff716d93aca60f06a"
-uuid = "5c2747f8-b7ea-4ff2-ba2e-563bfd36b1d4"
-version = "1.4.2"
 
 [[deps.UUIDs]]
 deps = ["Random", "SHA"]
@@ -1449,40 +1440,48 @@ version = "3.5.0+0"
 """
 
 # ╔═╡ Cell order:
-# ╟─3a9c3195-e77b-45e7-a153-40925d3b5ac9
-# ╟─ecd3eb38-d80d-11ed-3e5b-67f591eda4bf
-# ╠═68e5c6b1-d1a9-4e82-8124-4c6238c8347d
-# ╠═b1bdef91-4f6c-48ac-b7de-112918182c50
-# ╠═57b06385-7e4e-44d5-b27f-20fa93c3f053
-# ╠═c8f01d24-c54e-42d0-b40a-62f5de8022c0
-# ╟─56be5a59-a524-4622-9bce-e2da14fea30f
-# ╠═8ef8f16f-db5b-4117-ae54-5bc89f1c259b
-# ╠═cd1a5525-9cc4-487f-af2d-11475d8898b2
-# ╠═e35a4e68-0867-4351-9b93-1f7ce4cc59fe
-# ╠═9d2a625b-b5b2-4c71-8998-c700c71c6357
-# ╠═a48087c8-7b26-4f4a-b8c2-7401a3d133fe
-# ╠═38296a16-8c66-45a4-b020-60530a8a328d
-# ╠═dd5f017d-8f07-4118-a977-f676c104ef30
-# ╠═fad61700-8ec6-4d5c-bf98-aa4d880cec5a
-# ╠═7b455bba-8b5c-4789-9d2e-3175e71bbbba
-# ╠═dc5b6a97-12c7-410d-82a1-1d0311aa02a5
-# ╠═ae0b7e11-5a6e-4eb0-89f9-b0646b4d3dd3
-# ╠═7639c735-cc80-4ebf-a32c-29af34f78b57
-# ╟─206abaac-dde6-4fca-bed0-be1a46ce88a4
-# ╠═c879c165-2927-48ca-b54a-2cf26a767810
-# ╠═2f95653a-5f29-49a8-a7b0-1f23dcb56e36
-# ╠═20baf4f9-3d9e-44bf-acde-77fd0c93cd1b
-# ╠═a8de16c0-fa19-4d0a-82f0-ea1c401c6c89
-# ╠═12c612fb-924a-4a6c-9ec2-5489604b398e
-# ╠═9733f90a-fbdf-44bc-965f-dd0778619a40
-# ╠═3917fada-d87e-4c88-9886-0d71bacf1e73
-# ╠═33175bca-3d01-43df-8ed5-89063c4125c0
-# ╠═8de699da-19b6-4565-81c6-2a750757acd1
-# ╠═14207c52-7374-4201-b3a0-0a11216c5d14
-# ╠═02e7664a-3860-4ec3-9037-51b7502cf5e3
-# ╠═4fb0910f-a4b6-4aa3-8cb0-b59b69e47801
-# ╠═96e53273-52e7-485a-b924-0b2f299bf873
-# ╠═dee73139-ff5d-4dc2-a0e6-34a73b602fb5
-# ╠═fb7a89c6-3007-443a-95c5-bc87ef295293
+# ╠═ed30609a-dd8d-11ed-1071-9ff9b17db00c
+# ╠═619ec425-a3c4-46e4-a1b1-db4533f3e9e6
+# ╠═fa5b9bec-2097-4dbe-8984-887f9f1bb58b
+# ╠═5183c9cf-a488-4b3d-b500-041e17c956a5
+# ╠═8428d2d7-a40f-4af2-9969-5245c38215d9
+# ╠═d9f2046e-9e07-4ff6-9475-cfaa9904bfb6
+# ╠═c099636f-f066-4672-a76c-688da319dbbb
+# ╠═ed318f77-47ce-4220-a17a-e5e0acbabddc
+# ╠═35bec7b6-2891-434e-9ab8-2ebd43633fb5
+# ╠═0f471de2-42f4-455e-87e3-6f92f3653751
+# ╠═d906c8b7-3f89-43e2-8479-466faa3ef9bb
+# ╠═a04427c3-78ad-465e-abbd-6a08f3c9887d
+# ╠═b121c585-1cce-452f-96e1-8e340cd6bacc
+# ╠═defef1c0-f9e5-40c5-83d3-f64f190032f3
+# ╠═56911886-89ed-42f6-880f-595ab16987a9
+# ╠═939f19da-606d-46a0-9833-b13e602e7e10
+# ╟─24628716-8a7e-4a19-b5f5-86bf3e0ae829
+# ╠═730193d1-1900-4f94-bc5f-5562a8387005
+# ╠═97946f88-cb5c-4cce-b95d-c91b483a7bf3
+# ╠═57ebe8b1-9986-400e-9ba8-3b33ea0f3768
+# ╠═f8fa76b6-301a-4462-a641-334321891e95
+# ╠═f5d14cf3-778b-4991-b549-cc3f340c2e0e
+# ╠═c8888eb6-17f7-49f5-a5b5-daa7dfc90dee
+# ╠═8f286b17-5d4b-48fe-a5b4-a495c187d4e5
+# ╠═0becf895-64cf-4998-a8e7-9e5c0f53cb71
+# ╠═de5f4d59-dfbf-4a8f-b99a-ec58e5bd62fc
+# ╠═a03b3b50-1708-485d-9db3-a542c4ac19d0
+# ╠═474cad02-146d-47a1-8fbc-d8d9e61cda34
+# ╠═f39df4aa-a36c-40b8-9e95-b3ec5d515814
+# ╠═096e9c75-b163-4a97-b623-ca486765f25d
+# ╠═63e7d663-84aa-42dc-85c3-fe061547f24e
+# ╠═7d15d1df-ec03-4e33-b7e4-83d4fb4884e0
+# ╠═b3d084b3-3c83-49c2-bf67-dd28bbfb2060
+# ╠═dfe852af-1ed8-450a-bb46-141a848124e2
+# ╠═b461fc77-d50b-4990-9ef3-66aa7c1246b8
+# ╠═be524b26-bb32-474a-a6b3-783ecd98ef07
+# ╠═0d3078d3-1a52-4974-a055-7d2723d68afb
+# ╠═717aadb9-1b3a-469f-9dc9-de55e9d3af7b
+# ╠═32c2c7f6-b17f-4243-a293-e40f9700394e
+# ╠═43c95091-5232-4cf9-adb9-1b77d9ea7cf8
+# ╠═4060820a-500b-4898-9cfc-7f4ef5bfaaff
+# ╠═a2ead639-5961-4224-9e13-8d37f97973a8
+# ╠═d50611e0-bb7c-42b1-8326-0b992fcd7289
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
