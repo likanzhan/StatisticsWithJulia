@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.19.24
+# v0.19.25
 
 #> [frontmatter]
 #> chapter = 2
@@ -99,6 +99,15 @@ sum(res) / length(res)
 N = 10^5
   ╠═╡ =#
 
+# ╔═╡ f5d14cf3-778b-4991-b549-cc3f340c2e0e
+sss() = sum([iseven(rand(faces) + rand(faces)) for _ in 1:N]) / N
+
+# ╔═╡ c8888eb6-17f7-49f5-a5b5-daa7dfc90dee
+ress = [sss() for _ in 1:10^3]
+
+# ╔═╡ 8f286b17-5d4b-48fe-a5b4-a495c187d4e5
+hist(ress, bins = 50)
+
 # ╔═╡ 0becf895-64cf-4998-a8e7-9e5c0f53cb71
 md"""
 ### 密码匹配
@@ -142,15 +151,6 @@ correctPassword = "3xyZu4vN"
 
 # ╔═╡ 0d3078d3-1a52-4974-a055-7d2723d68afb
 N = 10^5
-
-# ╔═╡ f5d14cf3-778b-4991-b549-cc3f340c2e0e
-sss() = sum([iseven(rand(faces) + rand(faces)) for _ in 1:N]) / N
-
-# ╔═╡ c8888eb6-17f7-49f5-a5b5-daa7dfc90dee
-ress = [sss() for _ in 1:10^3]
-
-# ╔═╡ 8f286b17-5d4b-48fe-a5b4-a495c187d4e5
-hist(ress, bins = 50)
 
 # ╔═╡ 717aadb9-1b3a-469f-9dc9-de55e9d3af7b
 passLength = length(correctPassword)
@@ -823,9 +823,9 @@ version = "1.2.0"
 
 [[deps.MathTeXEngine]]
 deps = ["AbstractTrees", "Automa", "DataStructures", "FreeTypeAbstraction", "GeometryBasics", "LaTeXStrings", "REPL", "RelocatableFolders", "Test", "UnicodeFun"]
-git-tree-sha1 = "64890e1e8087b71c03bd6b8af99b49c805b2a78d"
+git-tree-sha1 = "8f52dbaa1351ce4cb847d95568cb29e62a307d93"
 uuid = "0a4f8689-d25c-4efe-a92b-7142dfc1aa53"
-version = "0.5.5"
+version = "0.5.6"
 
 [[deps.MbedTLS_jll]]
 deps = ["Artifacts", "Libdl"]
