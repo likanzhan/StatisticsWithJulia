@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.19.22
+# v0.19.25
 
 #> [frontmatter]
 #> chapter = 1
@@ -13,19 +13,13 @@
 using Markdown
 using InteractiveUtils
 
-# ╔═╡ cf5b03fc-1c5b-46e9-aeda-69c52c753dc0
-using Roots # find_zeros()
-
-# ╔═╡ aa10c3c1-880c-4b54-b425-c3c13ffad051
-using LinearAlgebra
-
-# ╔═╡ c929944e-17c5-407c-a39f-73577578c51a
-using StatsBase: sample, weights
-
 # ╔═╡ 27390550-c20f-11ed-3cd4-bff6756ed2c2
 md"""
 ### 多项式的根
 """
+
+# ╔═╡ cf5b03fc-1c5b-46e9-aeda-69c52c753dc0
+using Roots # find_zeros()
 
 # ╔═╡ 99f7eaf4-8905-4c81-bd77-7676bf2bef7f
 f(x) = -10x^2 + 3x + 1
@@ -76,6 +70,9 @@ P[1, 2]
 # ╔═╡ 5004a113-8d02-4dff-a8a3-48dd6d570d9c
 (P^10)[1, :]
 
+# ╔═╡ aa10c3c1-880c-4b54-b425-c3c13ffad051
+using LinearAlgebra
+
 # ╔═╡ f15c1b34-59cf-4269-9a9a-acf1dfce6f0d
 eigvecs(P')
 
@@ -91,6 +88,9 @@ md"""
 md"""
 `x += 1` 等价于 `x = x + 1` 
 """
+
+# ╔═╡ c929944e-17c5-407c-a39f-73577578c51a
+using StatsBase: sample, weights
 
 # ╔═╡ 93694d3c-2919-4e68-92a6-d5e6957220d4
 sample(1:3)
@@ -138,7 +138,7 @@ Roots = "f2b01f46-fcfa-551c-844a-d8ac1e96c665"
 StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
 
 [compat]
-Roots = "~2.0.10"
+Roots = "~2.0.12"
 StatsBase = "~0.33.21"
 """
 
@@ -148,7 +148,7 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.8.5"
 manifest_format = "2.0"
-project_hash = "afa05bb008440845272fe7dfdfe7edcb86f437f1"
+project_hash = "7f64a49a66d16ea3918dfd6eb66a6d77dd0c06be"
 
 [[deps.Artifacts]]
 uuid = "56f22d72-fd6d-98f1-02f0-08ddc0907c33"
@@ -276,9 +276,9 @@ uuid = "4536629a-c528-5b80-bd46-f80d51c5b363"
 version = "0.3.20+0"
 
 [[deps.OrderedCollections]]
-git-tree-sha1 = "85f8e6578bf1f9ee0d11e7bb1b1456435479d47c"
+git-tree-sha1 = "d321bf2de576bf25ec4d3e4360faca399afca282"
 uuid = "bac558e1-5e72-5ebc-8fee-abe8a469f55d"
-version = "1.4.1"
+version = "1.6.0"
 
 [[deps.Printf]]
 deps = ["Unicode"]
@@ -290,9 +290,9 @@ uuid = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 
 [[deps.Roots]]
 deps = ["ChainRulesCore", "CommonSolve", "Printf", "Setfield"]
-git-tree-sha1 = "b45deea4566988994ebb8fb80aa438a295995a6e"
+git-tree-sha1 = "82362f2a4f756951f21ebb3ac2aed094c46a5109"
 uuid = "f2b01f46-fcfa-551c-844a-d8ac1e96c665"
-version = "2.0.10"
+version = "2.0.12"
 
 [[deps.SHA]]
 uuid = "ea8e919c-243c-51af-8825-aaa63cd721ce"
@@ -328,9 +328,9 @@ uuid = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
 
 [[deps.StatsAPI]]
 deps = ["LinearAlgebra"]
-git-tree-sha1 = "f9af7f195fb13589dd2e2d57fdb401717d2eb1f6"
+git-tree-sha1 = "45a7769a04a3cf80da1c1c7c60caf932e6f4c9f7"
 uuid = "82ae8749-77ed-4fe6-ae5f-f523153014b0"
-version = "1.5.0"
+version = "1.6.0"
 
 [[deps.StatsBase]]
 deps = ["DataAPI", "DataStructures", "LinearAlgebra", "LogExpFunctions", "Missings", "Printf", "Random", "SortingAlgorithms", "SparseArrays", "Statistics", "StatsAPI"]
