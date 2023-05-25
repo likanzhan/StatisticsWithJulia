@@ -3,8 +3,8 @@
 
 #> [frontmatter]
 #> chapter = 2
-#> section = 2
-#> order = 14
+#> section = 4
+#> order = 15
 #> title = "容斥原理"
 #> layout = "layout.jlhtml"
 #> tags = ["lecture", "CH02"]
